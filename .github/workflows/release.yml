@@ -47,8 +47,10 @@ jobs:
         persist-credentials: false
 
     - name: Login to registry
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
-        echo ${{ github.token }} | docker login ghcr.io --username=${{ github.repository_owner }} --password-stdin
+        echo "$GH_TOKEN" | docker login ghcr.io --username="$GITHUB_REPOSITORY_OWNER" --password-stdin
 
     - name: Publish/Sign image
       run: |
